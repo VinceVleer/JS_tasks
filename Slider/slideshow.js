@@ -89,10 +89,10 @@ var updateSlider = function() {
 document.onkeydown = function(e) {
 	switch (e.keyCode) {
 		case 37:
-			nextSlide();
+			prevSlide();
 			break;
 		case 39:
-			prevSlide();
+			nextSlide();
 			break;
 	}
 };
