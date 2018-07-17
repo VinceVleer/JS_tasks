@@ -1,0 +1,12 @@
+body{
+    margin: 0px;
+}
+
+.content {
+    max-width: 640px;
+    margin: auto;
+}
+
+#canvas {
+    border:1px solid #000000;
+}
