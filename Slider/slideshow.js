@@ -1,21 +1,47 @@
-//retrieve HTML elements
-var prev = document.getElementsByClassName("prev");
-var next = document.getElementsByClassName("next");
-var play = document.getElementsByClassName("play");
-var image = document.getElementsByClassName("image");
+//array with classes
+const elements = [
+	{ class: "content", type: 'div'},
+	{ class: "prev", type: 'span'},
+	{ class: "play", type: 'span'},
+	{ class: "next", type: 'span'}
+];
+
+//create elements with matching classnames
+for (var i = 0; i < elements.length; i++) {
+
+	var newElement = document.createElement(elements[i].type),
+		newContent = document.createTextNode(elements[i].class);
+
+	newElement.classList.add(elements[i].class);
+
+	newElement.appendChild(newContent);
+	var htmlBody = document.getElementsByTagName('body')[0];
+	htmlBody.appendChild(newElement);
+}
+
+//retrieve elements
+var prevButton = document.querySelector("span.prev");
+var nextButton = document.querySelector("span.next");
+var playButton = document.querySelector("span.play");
 
 //index for currently active image
-var slideIndex = 0;
+var currentSlide = 0;
+
+//how many slides should there be
+var maxSlides = 4;
+
+//time in seconds between each slide (in play mode)
+var slideTime = 5;
 
 //slider state boolean
-var slideState = false;
+var autoPlay = false;
 
 //increase slider index
 var nextSlide = function() {
-	slideIndex++;
+	currentSlide++;
 
-	if (slideIndex > 2) {
-		slideIndex = 0;
+	if (currentSlide > maxSlides-1) {
+		currentSlide = 0;
 	} 
 
 	updateSlider();
@@ -23,66 +49,60 @@ var nextSlide = function() {
 
 //decrease slider index
 var prevSlide = function() {
-	slideIndex--;
+	currentSlide--;
 
-	if (slideIndex < 0) {
-		slideIndex = 2;
+	if (currentSlide < 0) {
+		currentSlide = maxSlides-1;
 	} 
 
 	updateSlider();
 }
 
 //var to start & stop the set interval
-var refreshIntervalId;
+var playInterval;
 
 //play or pause slider
 var playPause = function() {
 
-	slideState = !slideState;
+	autoPlay = !autoPlay;
 
-	if (slideState == true) {
-		play[0].classList.add("pause");
-		refreshIntervalId = setInterval(nextSlide, 5000);
+	if (autoPlay == true) {
+		playButton.classList.add("pause");
+		playInterval = setInterval(nextSlide, slideTime * 1000);
 	} else {
-		play[0].classList.remove("pause");
-		clearInterval(refreshIntervalId);
+		playButton.classList.remove("pause");
+		clearInterval(playInterval);
 	}
 }
 
 //link the next, prev & play elements to a function
-next[0].addEventListener('click', nextSlide);
-prev[0].addEventListener('click', prevSlide);
-play[0].addEventListener('click', playPause);
+nextButton.addEventListener('click', nextSlide);
+prevButton.addEventListener('click', prevSlide);
+playButton.addEventListener('click', playPause);
 
 //create img element with empty content
-var newElement = document.createElement('img'),
-	newContent = document.createTextNode('');
+var sliderElement = document.createElement('img'),
+	sliderContent = document.createTextNode('');
 
 //add class to newly created img element
-newElement.classList.add("image");
-
-//add img to element
-newElement.src = "image1.jpg";
+sliderElement.classList.add("image");
 
 //put element into html
-newElement.appendChild(newContent);
-var positionElement = document.getElementsByTagName('div')[0];
-positionElement.appendChild(newElement);
+sliderElement.appendChild(sliderContent);
+var positionSlider = document.getElementsByTagName('div')[0];
+positionSlider.appendChild(sliderElement);
+
+const slides = [
+
+];
+
+for (var i = 0; i < maxSlides; i++) {
+	slides.push("image" + [i+1] + ".jpg")
+}
 
 //update slider element
 var updateSlider = function() {
-
-	if (slideIndex == 0) {
-		newElement.src = "image1.jpg";
-	}
-
-	if (slideIndex == 1) {
-		newElement.src = "image2.jpg";
-	}
-
-	if (slideIndex == 2) {
-		newElement.src = "image3.jpg";
-	}
+	sliderElement.src = slides[currentSlide];
 }
 
 //assign keyboard keys to functions
@@ -96,3 +116,5 @@ document.onkeydown = function(e) {
 			break;
 	}
 };
+
+updateSlider();
