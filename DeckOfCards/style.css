@@ -1,0 +1,44 @@
+body{
+	margin: 0;
+}
+
+.content {
+	width: 500px;
+	margin: auto;
+}
+
+.content__enemy {
+	background-color: darkgreen;
+}
+
+.content__player {
+	background-color: darkgreen;
+}
+
+img {
+	margin-left: 137px;
+}
+
+.lower__button {
+	background-color: red;
+	padding: 5px;
+	color: white;
+}
+
+.higher__button {
+	background-color: lightgreen;
+	padding: 5px;
+	color: black;
+}
+
+.shuffle__button {
+	background-color: grey;
+	padding: 5px;
+	color: black;
+}
+
+.result {
+	text-align: center;
+	width: 500px;
+	margin: auto;
+}
