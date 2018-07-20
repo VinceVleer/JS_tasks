@@ -5,11 +5,14 @@ const cardClass = [
 ];
 
 var input;
+var streak = 0;
 
 var body = document.querySelector("body");
 var lowerButton = document.querySelector(".lower__button");
 var higherButton = document.querySelector(".higher__button");
 var shuffleButton = document.querySelector(".shuffle__button");
+var helpButton = document.querySelector(".help");
+
 
 //start game
 function start () {
@@ -32,14 +35,21 @@ function start () {
 		
 	}
 
+	alert('Press the "Lower" or "Higher" button to guess if your card (the lower one) is lower or higher than the opponents card (the upper one). \n\n You win the game if you guess correctly. \n\n Hit shuffle to restart the game.');
+
 }
 
 function removeScore () {
 
 	var resultNode = document.querySelector(".result");
+	var streakNode = document.querySelector(".streak");
 
 	if (resultNode) {
 		body.removeChild(resultNode);
+	};
+
+	if (streakNode) {
+		body.removeChild(streakNode);
 	};
 	
 }
@@ -126,8 +136,10 @@ function play (array) {
 	//compare the result to the input
 	if (input === higher) {
 		result = "You win!";
+		streak++;
 	} else {
 		result = "You lose";
+		streak = 0;
 	}
 
 	//create img element with empty content
@@ -141,11 +153,25 @@ function play (array) {
 	var winPosition = document.getElementsByTagName('body')[0];
 	winPosition.appendChild(winElement);
 
+	if (streak > 1) {
+		//create img element with empty content
+		var streakElement = document.createElement('div'),
+			streakContent = document.createTextNode('streak = ' + streak);
+
+		streakElement.classList.add('streak');
+
+		//put element into html
+		streakElement.appendChild(streakContent);
+		var streakPosition = document.getElementsByTagName('body')[0];
+		streakPosition.appendChild(streakElement);
+	};
+
 }
 
 lowerButton.addEventListener('click', selectLower);
 higherButton.addEventListener('click', selectHigher);
 shuffleButton.addEventListener('click', restart);
+helpButton.addEventListener('click', help);
 
 function restart () {
 
@@ -156,6 +182,10 @@ function restart () {
 	playerCardReal.src = "00.png";
 	removeScore();
 	console.clear();
+}
+
+function help () {
+	alert('Press the "Lower" or "Higher" button to guess if your card (the lower one) is lower or higher than the opponents card (the upper one). \n\n You win the game if you guess correctly. \n\n Hit shuffle to restart the game.');
 }
 
 start();

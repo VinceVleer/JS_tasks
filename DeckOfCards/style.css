@@ -37,7 +37,20 @@ img {
 	color: black;
 }
 
+.help {
+	background-color: black;
+	padding: 5px;
+	color: white;
+	margin-left: 280px;
+}
+
 .result {
+	text-align: center;
+	width: 500px;
+	margin: auto;
+}
+
+.streak {
 	text-align: center;
 	width: 500px;
 	margin: auto;
