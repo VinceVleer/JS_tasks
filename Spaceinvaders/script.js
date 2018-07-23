@@ -7,41 +7,24 @@ var fps = 30;
 //enemies---------------------------------------------------
 
 var enemies = createEnemyArray(); 
+
 function createEnemyArray(enemyArray){
 
-	var id = 0;
+	//empty array
 	var enemyArray = [];
 
-	//create 55 enemies
-	while (id < 55) {
-		enemyArray.push({
-			id: id, x: 40 * id, y: 16, width: 32, height: 16
-		})
-		id++
-	}
-
-	//transform 2nd row
-	for(var i = 11; i < 22; i++) {
-		enemyArray[i].y += 32;
-		enemyArray[i].x -= 440;
-	}
-
-	//transform 3d row
-	for(var i = 22; i < 33; i++) {
-		enemyArray[i].y += 64;
-		enemyArray[i].x -= 880;
-	}
-
-	//transform 4th row
-	for(var i = 33; i < 44; i++) {
-		enemyArray[i].y += 96;
-		enemyArray[i].x -= 1320;
-	}
-
-	//transform 5th row
-	for(var i = 44; i < 55; i++) {
-		enemyArray[i].y += 128;
-		enemyArray[i].x -= 1760;
+	//declare enemy layout
+	var size = [
+		{ x: 11, y: 5 },
+	];
+	
+	//fill array with enemies along the x axis and then stop at x = 11, increment y value and rinse and repeat untill y = 5
+	for (let y = 0; y < size[0].y; y++) {
+		for (let x = 0; x < size[0].x; x++) {
+			enemyArray.push({
+				x: 40 * x, y: 32 * y, width: 32, height: 16
+			})
+		}
 	}
 
 	return enemyArray;
@@ -53,7 +36,7 @@ var enemyOffsetY = 0;
 
 function updateEnemies(){
 
-//ping-pong--------------------------
+	//ping-pong--------------------------
 
 	//increment X+ value while moving to the right
 	if (enemyDirection == true) {
@@ -87,7 +70,7 @@ function updateEnemies(){
 		}
 	};
 
-//update enemy x values--------------------------
+	//update enemy x values--------------------------
 
 	//move all enemies along the X axis
 	if (enemyDirection == true) {
@@ -106,15 +89,16 @@ function collision () {
 
 	for(var i = 0 ; i < enemies.length ; i++) {
 		if (
-			((enemies[i].y + enemies[i].height) < (bulletY)) ||
-			(enemies[i].y > (bulletY + bulletH)) ||
-			((enemies[i].x + enemies[i].width) < bulletX) ||
-			(enemies[i].x > (bulletX + bulletW))
-		) {	}
-		else {
-			// console.log('destroyed enemy #' + i)
-			enemies.splice(i,1);
-			trigger = false;
+			!(
+				((enemies[i].y + enemies[i].height) < (bulletY)) ||
+				(enemies[i].y > (bulletY + bulletH)) ||
+				((enemies[i].x + enemies[i].width) < bulletX) ||
+				(enemies[i].x > (bulletX + bulletW))
+			)
+		) {
+				// console.log('destroyed enemy #' + i)
+				enemies.splice(i,1);
+				trigger = false;
 		}
 	}
 }
