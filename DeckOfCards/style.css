@@ -2,46 +2,41 @@ body{
 	margin: 0;
 }
 
-.content {
-	width: 500px;
-	margin: auto;
-}
-
-.content__enemy {
-	background-color: darkgreen;
-}
-
-.content__player {
-	background-color: darkgreen;
-}
-
 img {
 	margin-left: 137px;
 }
 
 .lower__button {
 	background-color: red;
-	padding: 5px;
+	padding: 16px;
 	color: white;
+	display: inline-block;
+	width: 50px;
 }
 
 .higher__button {
 	background-color: lightgreen;
-	padding: 5px;
+	padding: 16px;
 	color: black;
+	display: inline-block;
+	width: 50px;
 }
 
 .shuffle__button {
 	background-color: grey;
-	padding: 5px;
+	padding: 16px;
 	color: black;
+	display: inline-block;
+	width: 50px;
 }
 
 .help {
 	background-color: black;
-	padding: 5px;
+	padding: 16px;
 	color: white;
-	margin-left: 280px;
+	display: inline-block;
+	width: 50px;
+	margin-left: 160px;
 }
 
 .result {
@@ -54,4 +49,21 @@ img {
 	text-align: center;
 	width: 500px;
 	margin: auto;
+}
+
+/*-------------- vue --------------*/
+
+.game {
+	width: 500px;
+	margin: auto;
+}
+
+.deck {
+	height: 640px;
+	background-color: darkgreen;
+}
+
+.footer {
+	height: 50px;
+	background-color: darkred;
 }
